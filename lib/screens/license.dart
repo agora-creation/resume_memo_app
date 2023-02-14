@@ -10,6 +10,6 @@ class LicenseScreen extends StatefulWidget {
 class _LicenseScreenState extends State<LicenseScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Center(child: Text('免許・資格'));
   }
 }

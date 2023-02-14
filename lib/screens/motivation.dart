@@ -10,6 +10,6 @@ class MotivationScreen extends StatefulWidget {
 class _MotivationScreenState extends State<MotivationScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Center(child: Text('志望動機など'));
   }
 }
