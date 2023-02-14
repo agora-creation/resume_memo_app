@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.agoracreation.resume_memo_app">
    <application
-        android:label="resume_memo_app"
+        android:label="履歴書メモ"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
