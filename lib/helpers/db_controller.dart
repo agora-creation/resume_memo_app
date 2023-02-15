@@ -7,9 +7,9 @@ class DBController {
       CREATE TABLE user(
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         image TEXT,
-        name_ruby TEXT,
+        nameRuby TEXT,
         name TEXT,
-        birth_date TEXT,
+        birthDate TEXT,
         gender TEXT,
         zip TEXT,
         address TEXT,
@@ -68,9 +68,9 @@ class DBController {
     final db = await DBController.db();
     final data = {
       'image': '',
-      'name_ruby': '',
+      'nameRuby': '',
       'name': '',
-      'birth_date': '',
+      'birthDate': '',
       'gender': '',
       'zip': '',
       'address': '',
@@ -153,9 +153,9 @@ class DBController {
     final db = await DBController.db();
     final data = {
       'image': '',
-      'name_ruby': '',
+      'nameRuby': '',
       'name': '',
-      'birth_date': '',
+      'birthDate': '',
       'gender': '',
       'zip': '',
       'address': '',
@@ -169,6 +169,36 @@ class DBController {
       data,
       where: 'id = ?',
       whereArgs: [1],
+    );
+    return result;
+  }
+
+  static Future<int> updateHistory(int id) async {
+    final db = await DBController.db();
+    final data = {
+      'month': '',
+      'memo': '',
+    };
+    final result = await db.update(
+      'history',
+      data,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+    return result;
+  }
+
+  static Future<int> updateLicense(int id) async {
+    final db = await DBController.db();
+    final data = {
+      'month': '',
+      'memo': '',
+    };
+    final result = await db.update(
+      'license',
+      data,
+      where: 'id = ?',
+      whereArgs: [id],
     );
     return result;
   }
