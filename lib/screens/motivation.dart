@@ -113,7 +113,6 @@ class _MemoDialogState extends State<MemoDialog> {
           ),
           CustomMessageField(
             autofocus: true,
-            textInputAction: TextInputAction.done,
             controller: memoController,
           ),
           const SizedBox(height: 16),
@@ -173,7 +172,6 @@ class _Memo2DialogState extends State<Memo2Dialog> {
           ),
           CustomMessageField(
             autofocus: true,
-            textInputAction: TextInputAction.done,
             controller: memo2Controller,
           ),
           const SizedBox(height: 16),

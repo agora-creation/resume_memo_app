@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:resume_memo_app/helpers/db_controller.dart';
 import 'package:resume_memo_app/helpers/functions.dart';
 import 'package:resume_memo_app/widgets/custom_text_button.dart';
@@ -82,7 +83,16 @@ class _UserScreenState extends State<UserScreen> {
                 ListTile(
                   title: const Text('1993年10月27日 (満00歳)'),
                   trailing: const Icon(Icons.edit),
-                  onTap: () {},
+                  onTap: () async {
+                    await DatePicker.showDatePicker(
+                      context,
+                      minTime: DateTime.now().subtract(
+                        const Duration(days: 365 * 120),
+                      ),
+                      maxTime: DateTime.now(),
+                      onConfirm: (date) async {},
+                    );
+                  },
                 ),
               ],
             ),

@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 
 class CustomMessageField extends StatelessWidget {
   final bool autofocus;
-  final TextInputAction textInputAction;
   final TextEditingController controller;
 
   const CustomMessageField({
     required this.autofocus,
-    required this.textInputAction,
     required this.controller,
     Key? key,
   }) : super(key: key);
@@ -21,7 +19,6 @@ class CustomMessageField extends StatelessWidget {
       ),
       child: TextField(
         autofocus: autofocus,
-        textInputAction: textInputAction,
         controller: controller,
         keyboardType: TextInputType.multiline,
         maxLines: null,
