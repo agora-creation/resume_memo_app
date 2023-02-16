@@ -18,6 +18,7 @@ class DBController {
         tel TEXT,
         tel2 TEXT,
         createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+      )
     """);
   }
 
@@ -28,6 +29,7 @@ class DBController {
         month TEXT,
         memo TEXT,
         createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+      )
     """);
   }
 
@@ -38,6 +40,7 @@ class DBController {
         month TEXT,
         memo TEXT,
         createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+      )
     """);
   }
 
@@ -48,6 +51,7 @@ class DBController {
         memo TEXT,
         memo2 TEXT,
         createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+      )
     """);
   }
 
@@ -62,29 +66,6 @@ class DBController {
         await createMotivation(database);
       },
     );
-  }
-
-  static Future<int> insertUser() async {
-    final db = await DBController.db();
-    final data = {
-      'image': '',
-      'nameRuby': '',
-      'name': '',
-      'birthDate': '',
-      'gender': '',
-      'zip': '',
-      'address': '',
-      'zip2': '',
-      'address2': '',
-      'tel': '',
-      'tel2': '',
-    };
-    final id = await db.insert(
-      'user',
-      data,
-      conflictAlgorithm: sql.ConflictAlgorithm.replace,
-    );
-    return id;
   }
 
   static Future<int> insertHistory(String month, String memo) async {
@@ -115,23 +96,41 @@ class DBController {
     return id;
   }
 
-  static Future<int> insertMotivation() async {
-    final db = await DBController.db();
-    final data = {
-      'memo': '',
-      'memo2': '',
-    };
-    final id = await db.insert(
-      'motivation',
-      data,
-      conflictAlgorithm: sql.ConflictAlgorithm.replace,
-    );
-    return id;
-  }
-
   static Future<List<Map<String, dynamic>>> selectUser() async {
     final db = await DBController.db();
-    return db.query('user', where: 'id = ?', whereArgs: [1], limit: 1);
+    List<Map<String, dynamic>> result = await db.query(
+      'user',
+      where: 'id = ?',
+      whereArgs: [1],
+      limit: 1,
+    );
+    if (result.isEmpty) {
+      final data = {
+        'image': '',
+        'nameRuby': '',
+        'name': '',
+        'birthDate': '',
+        'gender': '',
+        'zip': '',
+        'address': '',
+        'zip2': '',
+        'address2': '',
+        'tel': '',
+        'tel2': '',
+      };
+      await db.insert(
+        'user',
+        data,
+        conflictAlgorithm: sql.ConflictAlgorithm.replace,
+      );
+      result = await db.query(
+        'user',
+        where: 'id = ?',
+        whereArgs: [1],
+        limit: 1,
+      );
+    }
+    return result;
   }
 
   static Future<List<Map<String, dynamic>>> selectHistory() async {
@@ -146,24 +145,34 @@ class DBController {
 
   static Future<List<Map<String, dynamic>>> selectMotivation() async {
     final db = await DBController.db();
-    return db.query('motivation', where: 'id = ?', whereArgs: [1], limit: 1);
+    List<Map<String, dynamic>> result = await db.query(
+      'motivation',
+      where: 'id = ?',
+      whereArgs: [1],
+      limit: 1,
+    );
+    if (result.isEmpty) {
+      final data = {
+        'memo': '',
+        'memo2': '',
+      };
+      await db.insert(
+        'motivation',
+        data,
+        conflictAlgorithm: sql.ConflictAlgorithm.replace,
+      );
+      result = await db.query(
+        'motivation',
+        where: 'id = ?',
+        whereArgs: [1],
+        limit: 1,
+      );
+    }
+    return result;
   }
 
-  static Future<int> updateUser() async {
+  static Future<int> updateUser(Map<String, String> data) async {
     final db = await DBController.db();
-    final data = {
-      'image': '',
-      'nameRuby': '',
-      'name': '',
-      'birthDate': '',
-      'gender': '',
-      'zip': '',
-      'address': '',
-      'zip2': '',
-      'address2': '',
-      'tel': '',
-      'tel2': '',
-    };
     final result = await db.update(
       'user',
       data,
@@ -203,12 +212,8 @@ class DBController {
     return result;
   }
 
-  static Future<int> updateMotivation() async {
+  static Future<int> updateMotivation(Map<String, String> data) async {
     final db = await DBController.db();
-    final data = {
-      'memo': '',
-      'memo2': '',
-    };
     final result = await db.update(
       'motivation',
       data,

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void pushScreen(BuildContext context, Widget widget) {
@@ -15,6 +16,14 @@ void pushReplacementScreen(BuildContext context, Widget widget) {
     context,
     MaterialPageRoute(builder: (context) => widget, fullscreenDialog: true),
   );
+}
+
+String dateText(String format, DateTime? dateTime) {
+  String result = '';
+  if (dateTime != null) {
+    result = DateFormat(format, 'ja').format(dateTime);
+  }
+  return result;
 }
 
 String randomString(int length) {
