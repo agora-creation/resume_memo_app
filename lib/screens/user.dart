@@ -41,6 +41,35 @@ class _UserScreenState extends State<UserScreen> {
     return ListView(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       children: [
+        Stack(
+          children: [
+            const SizedBox(
+              width: 120,
+              height: 150,
+              child: ClipRRect(
+                child: Image(
+                  image: NetworkImage('https://placehold.jp/120x150.png'),
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: Container(
+                width: 35,
+                height: 35,
+                decoration: const BoxDecoration(
+                  color: Colors.blue,
+                ),
+                child: const Icon(
+                  Icons.edit,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+            ),
+          ],
+        ),
         const CircleAvatar(
           backgroundColor: Colors.lightBlue,
           radius: 80,
