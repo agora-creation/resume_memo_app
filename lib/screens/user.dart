@@ -1,3 +1,4 @@
+import 'package:age_calculator/age_calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:resume_memo_app/helpers/db_controller.dart';
@@ -28,6 +29,15 @@ class _UserScreenState extends State<UserScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String birthDate = userData?['birthDate'] ?? '';
+    String birth = '----年--月--日';
+    String age = '--';
+    if (birthDate != '') {
+      DateTime tmp = DateTime.parse(birthDate);
+      birth = dateText('yyyy年MM月dd日', tmp);
+      age = AgeCalculator.age(tmp).years.toString();
+    }
+
     return ListView(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       children: [
@@ -81,16 +91,27 @@ class _UserScreenState extends State<UserScreen> {
             TableRow(
               children: [
                 ListTile(
-                  title: const Text('1993年10月27日 (満00歳)'),
+                  title: Text(
+                    '$birth　(満$age歳)',
+                  ),
                   trailing: const Icon(Icons.edit),
                   onTap: () async {
                     await DatePicker.showDatePicker(
                       context,
+                      locale: LocaleType.jp,
                       minTime: DateTime.now().subtract(
-                        const Duration(days: 365 * 120),
+                        const Duration(days: 365 * 100),
                       ),
-                      maxTime: DateTime.now(),
-                      onConfirm: (date) async {},
+                      maxTime: DateTime.now().subtract(
+                        const Duration(days: 365 * 10),
+                      ),
+                      onConfirm: (date) async {
+                        await DBController.updateUser({
+                          'birthDate': dateText('yyyy-MM-dd', date),
+                        }).then((value) {
+                          _selectUser();
+                        });
+                      },
                     );
                   },
                 ),
