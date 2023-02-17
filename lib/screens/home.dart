@@ -32,12 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('履歴書メモ > ${tabsName[currentIndex]}'),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.info),
-          ),
-        ],
       ),
       body: tabsContent[currentIndex],
       bottomNavigationBar: CustomNavigationBar(
