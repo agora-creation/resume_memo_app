@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:resume_memo_app/helpers/functions.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 
 class DBController {
@@ -68,10 +69,13 @@ class DBController {
     );
   }
 
-  static Future<int> insertHistory(String month, String memo) async {
+  static Future<int> insertHistory({
+    required DateTime month,
+    required String memo,
+  }) async {
     final db = await DBController.db();
     final data = {
-      'month': month,
+      'month': dateText('yyyy-MM-dd', month),
       'memo': memo,
     };
     final id = await db.insert(
@@ -82,10 +86,13 @@ class DBController {
     return id;
   }
 
-  static Future<int> insertLicense(String month, String memo) async {
+  static Future<int> insertLicense({
+    required DateTime month,
+    required String memo,
+  }) async {
     final db = await DBController.db();
     final data = {
-      'month': month,
+      'month': dateText('yyyy-MM-dd', month),
       'memo': memo,
     };
     final id = await db.insert(
@@ -182,11 +189,15 @@ class DBController {
     return result;
   }
 
-  static Future<int> updateHistory(int id) async {
+  static Future<int> updateHistory({
+    required int id,
+    required DateTime month,
+    required String memo,
+  }) async {
     final db = await DBController.db();
     final data = {
-      'month': '',
-      'memo': '',
+      'month': dateText('yyyy-MM-dd', month),
+      'memo': memo,
     };
     final result = await db.update(
       'history',
@@ -197,11 +208,15 @@ class DBController {
     return result;
   }
 
-  static Future<int> updateLicense(int id) async {
+  static Future<int> updateLicense({
+    required int id,
+    required DateTime month,
+    required String memo,
+  }) async {
     final db = await DBController.db();
     final data = {
-      'month': '',
-      'memo': '',
+      'month': dateText('yyyy-MM-dd', month),
+      'memo': memo,
     };
     final result = await db.update(
       'license',
@@ -223,7 +238,7 @@ class DBController {
     return result;
   }
 
-  static Future deleteHistory(int id) async {
+  static Future deleteHistory({required int id}) async {
     final db = await DBController.db();
     try {
       await db.delete('history', where: 'id = ?', whereArgs: [id]);
@@ -234,7 +249,7 @@ class DBController {
     }
   }
 
-  static Future deleteLicense(int id) async {
+  static Future deleteLicense({required int id}) async {
     final db = await DBController.db();
     try {
       await db.delete('license', where: 'id = ?', whereArgs: [id]);

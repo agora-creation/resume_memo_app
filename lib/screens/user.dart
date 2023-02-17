@@ -465,7 +465,7 @@ class _AddressDialogState extends State<AddressDialog> {
             style: TextStyle(fontSize: 14),
           ),
           CustomTextField(
-            autofocus: true,
+            autofocus: false,
             textInputAction: TextInputAction.done,
             controller: addressController,
             textInputType: TextInputType.streetAddress,
@@ -542,7 +542,7 @@ class _Address2DialogState extends State<Address2Dialog> {
             style: TextStyle(fontSize: 14),
           ),
           CustomTextField(
-            autofocus: true,
+            autofocus: false,
             textInputAction: TextInputAction.done,
             controller: address2Controller,
             textInputType: TextInputType.streetAddress,
