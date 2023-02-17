@@ -23,6 +23,8 @@ dependencies:
   flutter_datetime_picker: ^1.5.1
   age_calculator: ^1.0.0
   data_table_2: ^2.3.12
+  image_picker: ^0.8.6+1
+  path_provider: ^2.0.12
 
 dev_dependencies:
   flutter_test:
