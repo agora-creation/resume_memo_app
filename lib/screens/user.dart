@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:age_calculator/age_calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:resume_memo_app/helpers/db_controller.dart';
 import 'package:resume_memo_app/helpers/functions.dart';
 import 'package:resume_memo_app/widgets/custom_text_button.dart';
 import 'package:resume_memo_app/widgets/custom_text_field.dart';
+import 'package:resume_memo_app/widgets/user_image.dart';
 
 class UserScreen extends StatefulWidget {
   const UserScreen({Key? key}) : super(key: key);
@@ -14,11 +18,19 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
+  File? imageFile;
+  final picker = ImagePicker();
   Map<String, dynamic>? userData;
 
   void _selectUser() async {
     final data = await DBController.selectUser();
-    setState(() => userData = data.single);
+    setState(() {
+      userData = data.single;
+      String imagePath = userData?['image'] ?? '';
+      if (imagePath != '') {
+        imageFile = File(imagePath);
+      }
+    });
   }
 
   @override
@@ -41,38 +53,18 @@ class _UserScreenState extends State<UserScreen> {
     return ListView(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       children: [
-        Stack(
-          children: [
-            const SizedBox(
-              width: 120,
-              height: 150,
-              child: ClipRRect(
-                child: Image(
-                  image: NetworkImage('https://placehold.jp/120x150.png'),
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: Container(
-                width: 35,
-                height: 35,
-                decoration: const BoxDecoration(
-                  color: Colors.blue,
-                ),
-                child: const Icon(
-                  Icons.edit,
-                  color: Colors.white,
-                  size: 20,
-                ),
-              ),
-            ),
-          ],
-        ),
-        const CircleAvatar(
-          backgroundColor: Colors.lightBlue,
-          radius: 80,
+        UserImage(
+          imageFile: imageFile,
+          onTap: () async {
+            final pickedFile = await picker.pickImage(
+              source: ImageSource.gallery,
+            );
+            if (pickedFile != null) {
+              File image = File(pickedFile.path);
+              await DBController.updateUserImage(image);
+              _selectUser();
+            }
+          },
         ),
         const SizedBox(height: 16),
         Table(

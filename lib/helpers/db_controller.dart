@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 import 'package:resume_memo_app/helpers/functions.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 
@@ -142,12 +146,12 @@ class DBController {
 
   static Future<List<Map<String, dynamic>>> selectHistory() async {
     final db = await DBController.db();
-    return db.query('history', orderBy: 'id DESC');
+    return db.query('history', orderBy: 'month ASC');
   }
 
   static Future<List<Map<String, dynamic>>> selectLicense() async {
     final db = await DBController.db();
-    return db.query('license', orderBy: 'id DESC');
+    return db.query('license', orderBy: 'month ASC');
   }
 
   static Future<List<Map<String, dynamic>>> selectMotivation() async {
@@ -180,6 +184,29 @@ class DBController {
 
   static Future<int> updateUser(Map<String, String> data) async {
     final db = await DBController.db();
+    final result = await db.update(
+      'user',
+      data,
+      where: 'id = ?',
+      whereArgs: [1],
+    );
+    return result;
+  }
+
+  static Future get localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path;
+  }
+
+  static Future<int> updateUserImage(File file) async {
+    final path = await localPath;
+    String savePath = '$path/${p.basename(file.path)}';
+    File saveFile = File(savePath);
+    await saveFile.writeAsBytes(await file.readAsBytes());
+    final db = await DBController.db();
+    final data = {
+      'image': savePath,
+    };
     final result = await db.update(
       'user',
       data,
