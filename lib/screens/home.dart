@@ -1,8 +1,14 @@
+import 'dart:io';
+
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:resume_memo_app/helpers/style.dart';
 import 'package:resume_memo_app/screens/history.dart';
 import 'package:resume_memo_app/screens/license.dart';
 import 'package:resume_memo_app/screens/motivation.dart';
 import 'package:resume_memo_app/screens/user.dart';
+import 'package:resume_memo_app/widgets/custom_ad_widget.dart';
 import 'package:resume_memo_app/widgets/custom_navigation_bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -27,6 +33,36 @@ class _HomeScreenState extends State<HomeScreen> {
     '志望動機など',
   ];
 
+  final BannerAd bannerAd = BannerAd(
+    adUnitId: Platform.isAndroid ? androidAdUnitId : iosAdUnitId,
+    size: AdSize.banner,
+    request: const AdRequest(),
+    listener: BannerAdListener(
+      onAdLoaded: (Ad ad) {},
+      onAdFailedToLoad: (Ad ad, LoadAdError error) {
+        ad.dispose();
+      },
+      onAdOpened: (Ad ad) {},
+      onAdClosed: (Ad ad) {},
+      onAdImpression: (Ad ad) {},
+    ),
+  );
+
+  Future initPlugin() async {
+    final status = await AppTrackingTransparency.trackingAuthorizationStatus;
+    if (status == TrackingStatus.notDetermined) {
+      await Future.delayed(const Duration(milliseconds: 200));
+      await AppTrackingTransparency.requestTrackingAuthorization();
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => initPlugin());
+    bannerAd.load();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         currentIndex: currentIndex,
       ),
+      bottomSheet: CustomAdWidget(bannerAd: bannerAd),
     );
   }
 }

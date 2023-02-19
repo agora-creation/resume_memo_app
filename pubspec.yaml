@@ -25,6 +25,8 @@ dependencies:
   data_table_2: ^2.3.12
   image_picker: ^0.8.6+1
   path_provider: ^2.0.12
+  google_mobile_ads: ^2.2.0
+  app_tracking_transparency: ^2.0.3
 
 dev_dependencies:
   flutter_test:
