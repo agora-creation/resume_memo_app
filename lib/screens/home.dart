@@ -69,14 +69,20 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text('履歴書メモ > ${tabsName[currentIndex]}'),
       ),
-      body: tabsContent[currentIndex],
+      body: Column(
+        children: [
+          CustomAdWidget(bannerAd: bannerAd),
+          Expanded(
+            child: tabsContent[currentIndex],
+          ),
+        ],
+      ),
       bottomNavigationBar: CustomNavigationBar(
         onTap: (index) {
           setState(() => currentIndex = index);
         },
         currentIndex: currentIndex,
       ),
-      bottomSheet: CustomAdWidget(bannerAd: bannerAd),
     );
   }
 }
