@@ -72,17 +72,14 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             onPressed: () async {
-              PdfDocument document = PdfDocument(
-                inputBytes: File('assets/pdf/template.pdf').readAsBytesSync(),
-              );
-              PdfPage page = document.pages[0];
-              page.graphics.drawString(
-                '島村　裕太',
-                PdfStandardFont(PdfFontFamily.helvetica, 12),
-                brush: PdfSolidBrush(PdfColor(0, 0, 0)),
-                bounds: const Rect.fromLTWH(0, 9, 150, 20),
-              );
-              File('output.pdf').writeAsBytes(await document.save());
+              PdfDocument document = PdfDocument();
+              document.pages.add().graphics.drawString(
+                    'HelloWorld',
+                    PdfStandardFont(PdfFontFamily.helvetica, 12),
+                    brush: PdfSolidBrush(PdfColor(0, 0, 0)),
+                    bounds: const Rect.fromLTWH(0, 0, 150, 20),
+                  );
+              File('HelloWorld.pdf').writeAsBytes(await document.save());
               document.dispose();
             },
             icon: const Icon(Icons.print, color: Colors.blue),
