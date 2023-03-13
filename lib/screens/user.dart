@@ -75,7 +75,7 @@ class _UserScreenState extends State<UserScreen> {
               children: [
                 ListTile(
                   title: Text('${userData?['nameRuby'] ?? ''}'),
-                  trailing: const Icon(Icons.edit),
+                  trailing: const Icon(Icons.edit, color: Colors.blue),
                   onTap: () {
                     showDialog(
                       context: context,
@@ -94,7 +94,7 @@ class _UserScreenState extends State<UserScreen> {
               children: [
                 ListTile(
                   title: Text('${userData?['name'] ?? ''}'),
-                  trailing: const Icon(Icons.edit),
+                  trailing: const Icon(Icons.edit, color: Colors.blue),
                   onTap: () {
                     showDialog(
                       context: context,
@@ -115,7 +115,7 @@ class _UserScreenState extends State<UserScreen> {
                   title: Text(
                     '$birth　(満$age歳)',
                   ),
-                  trailing: const Icon(Icons.edit),
+                  trailing: const Icon(Icons.edit, color: Colors.blue),
                   onTap: () async {
                     await DatePicker.showDatePicker(
                       context,
@@ -143,7 +143,7 @@ class _UserScreenState extends State<UserScreen> {
               children: [
                 ListTile(
                   title: Text('${userData?['gender'] ?? ''}'),
-                  trailing: const Icon(Icons.edit),
+                  trailing: const Icon(Icons.edit, color: Colors.blue),
                   onTap: () {
                     showDialog(
                       context: context,
@@ -168,7 +168,7 @@ class _UserScreenState extends State<UserScreen> {
                       Text('${userData?['address'] ?? ''}'),
                     ],
                   ),
-                  trailing: const Icon(Icons.edit),
+                  trailing: const Icon(Icons.edit, color: Colors.blue),
                   onTap: () {
                     showDialog(
                       context: context,
@@ -194,7 +194,7 @@ class _UserScreenState extends State<UserScreen> {
                       Text('${userData?['address2'] ?? ''}'),
                     ],
                   ),
-                  trailing: const Icon(Icons.edit),
+                  trailing: const Icon(Icons.edit, color: Colors.blue),
                   onTap: () {
                     showDialog(
                       context: context,
@@ -214,7 +214,7 @@ class _UserScreenState extends State<UserScreen> {
               children: [
                 ListTile(
                   title: Text('${userData?['tel'] ?? ''}'),
-                  trailing: const Icon(Icons.edit),
+                  trailing: const Icon(Icons.edit, color: Colors.blue),
                   onTap: () {
                     showDialog(
                       context: context,

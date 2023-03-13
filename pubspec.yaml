@@ -27,6 +27,7 @@ dependencies:
   path_provider: ^2.0.12
   google_mobile_ads: ^2.2.0
   app_tracking_transparency: ^2.0.3
+  syncfusion_flutter_pdf: ^20.4.53
 
 dev_dependencies:
   flutter_test:
@@ -40,6 +41,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/pdf/
 
   fonts:
     - family: SourceHanSerif-Bold

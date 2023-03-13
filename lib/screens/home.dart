@@ -10,6 +10,7 @@ import 'package:resume_memo_app/screens/motivation.dart';
 import 'package:resume_memo_app/screens/user.dart';
 import 'package:resume_memo_app/widgets/custom_ad_widget.dart';
 import 'package:resume_memo_app/widgets/custom_navigation_bar.dart';
+import 'package:syncfusion_flutter_pdf/pdf.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -68,6 +69,25 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('履歴書メモ > ${tabsName[currentIndex]}'),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              PdfDocument document = PdfDocument(
+                inputBytes: File('assets/pdf/template.pdf').readAsBytesSync(),
+              );
+              PdfPage page = document.pages[0];
+              page.graphics.drawString(
+                '島村　裕太',
+                PdfStandardFont(PdfFontFamily.helvetica, 12),
+                brush: PdfSolidBrush(PdfColor(0, 0, 0)),
+                bounds: const Rect.fromLTWH(0, 9, 150, 20),
+              );
+              File('output.pdf').writeAsBytes(await document.save());
+              document.dispose();
+            },
+            icon: const Icon(Icons.print, color: Colors.blue),
+          ),
+        ],
       ),
       body: Column(
         children: [

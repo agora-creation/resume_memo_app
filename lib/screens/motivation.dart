@@ -38,7 +38,7 @@ class _MotivationScreenState extends State<MotivationScreen> {
               children: [
                 ListTile(
                   title: Text('${motivationData?['memo'] ?? ''}'),
-                  trailing: const Icon(Icons.edit),
+                  trailing: const Icon(Icons.edit, color: Colors.blue),
                   onTap: () {
                     showDialog(
                       context: context,
@@ -57,7 +57,7 @@ class _MotivationScreenState extends State<MotivationScreen> {
               children: [
                 ListTile(
                   title: Text('${motivationData?['memo2'] ?? ''}'),
-                  trailing: const Icon(Icons.edit),
+                  trailing: const Icon(Icons.edit, color: Colors.blue),
                   onTap: () {
                     showDialog(
                       context: context,
