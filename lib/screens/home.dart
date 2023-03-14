@@ -2,14 +2,13 @@ import 'dart:io';
 
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
+import 'package:resume_memo_app/helpers/functions.dart';
 import 'package:resume_memo_app/helpers/style.dart';
 import 'package:resume_memo_app/screens/history.dart';
 import 'package:resume_memo_app/screens/license.dart';
 import 'package:resume_memo_app/screens/motivation.dart';
+import 'package:resume_memo_app/screens/pdf.dart';
 import 'package:resume_memo_app/screens/user.dart';
 import 'package:resume_memo_app/widgets/custom_ad_widget.dart';
 import 'package:resume_memo_app/widgets/custom_navigation_bar.dart';
@@ -73,22 +72,8 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text('履歴書メモ > ${tabsName[currentIndex]}'),
         actions: [
           IconButton(
-            onPressed: () async {
-              final pdf = pw.Document();
-              final font = await rootBundle.load(
-                'assets/fonts/SourceHanSerif-Regular.otf',
-              );
-              final ttf = pw.Font.ttf(font);
-              pdf.addPage(pw.Page(
-                pageFormat: PdfPageFormat.a3,
-                build: (context) => pw.Column(
-                  children: [
-                    pw.Text('島村裕太'),
-                  ],
-                ),
-              ));
-              final file = File('example.pdf');
-              await file.writeAsBytes(await pdf.save());
+            onPressed: () {
+              pushScreen(context, const PdfScreen());
             },
             icon: const Icon(Icons.print, color: Colors.blue),
           ),
