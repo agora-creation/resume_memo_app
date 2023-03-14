@@ -14,11 +14,14 @@ class PdfCreator {
     final content = MultiPage(
       pageTheme: PageTheme(
         theme: ThemeData.withFont(base: font),
-        pageFormat: PdfPageFormat.a3,
-        orientation: PageOrientation.landscape,
+        pageFormat: PdfPageFormat.a4,
+        orientation: PageOrientation.portrait,
       ),
       build: (context) {
         return [
+          Text(
+            'shimamura',
+          ),
           Header(
             level: 0,
             textStyle: Theme.of(context).header0,
