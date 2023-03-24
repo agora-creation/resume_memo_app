@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:resume_memo_app/helpers/functions.dart';
+import 'package:resume_memo_app/helpers/file_handle_api.dart';
+import 'package:resume_memo_app/helpers/pdf_api.dart';
 import 'package:resume_memo_app/helpers/style.dart';
 import 'package:resume_memo_app/screens/history.dart';
 import 'package:resume_memo_app/screens/license.dart';
 import 'package:resume_memo_app/screens/motivation.dart';
-import 'package:resume_memo_app/screens/pdf.dart';
 import 'package:resume_memo_app/screens/user.dart';
 import 'package:resume_memo_app/widgets/custom_ad_widget.dart';
 import 'package:resume_memo_app/widgets/custom_navigation_bar.dart';
@@ -72,8 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text('履歴書メモ > ${tabsName[currentIndex]}'),
         actions: [
           IconButton(
-            onPressed: () {
-              pushScreen(context, const PdfScreen());
+            onPressed: () async {
+              final pdfFile = await PdfApi.generate();
+              FileHandleApi.openFile(pdfFile);
             },
             icon: const Icon(Icons.print, color: Colors.blue),
           ),
