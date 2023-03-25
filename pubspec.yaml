@@ -28,6 +28,7 @@ dependencies:
   google_mobile_ads: ^2.2.0
   app_tracking_transparency: ^2.0.3
   pdf: ^3.8.4
+  printing: ^5.9.3
   open_file: ^3.2.1
 
 dev_dependencies:
