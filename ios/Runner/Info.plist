@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>SKAdNetworkIdentifier</key>
+    <key>SKAdNetworkItems</key>
     <array>
         <dict>
             <key>SKAdNetworkIdentifier</key>
@@ -14,7 +14,7 @@
         </dict>
         <dict>
             <key>SKAdNetworkIdentifier</key>
-            <string>4pfyvq9l8r.skadnetwork </string>
+            <string>4pfyvq9l8r.skadnetwork</string>
         </dict>
         <dict>
             <key>SKAdNetworkIdentifier</key>
